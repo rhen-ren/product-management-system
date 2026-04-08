@@ -1,0 +1,59 @@
+h1{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+.Products
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+.Product-Card
+{
+    border-radius: 25px;
+    border: 5px solid darkblue;
+    background-color: whitesmoke;
+}
+.Modal
+{
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    justify-content: center;
+    align-items: center;
+}
+.Modal-Content
+{
+    position: absolute;
+    background-color: red;
+    border-color: red;
+    border-radius: 25px;
+
+    width: 250px;
+    padding: 20px;
+}
+.Product-Edit-Form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#Product-Image
+{
+    display: flex;
+    width: 250px;
+    height: 200px;
+    margin: 0 auto;
+}
+.Product-Form-Buttons
+{
+    padding-top: 10px;
+    flex: 0 0 auto;
+}

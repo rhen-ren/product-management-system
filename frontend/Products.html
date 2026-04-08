@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <h1>Ecommerce DBMS</h1>
+        <div class="Modal">
+            <div class="Modal-Content">
+                <img id="Product-Image"src="7208587-pink-aesthetic-hd-wallpaper-dreamy-pink-skyline.png" alt="Product Image">
+                <form class="Product-Edit-Form">
+                    <label for="product_Image">Product Image:</label>
+                    <input id="product_Image" type="file" accept=".jpg, .png, .jpeg">
+                    <input id="product_ID" type="hidden">
+                    <label for="pCategory">Category:</label>
+                    <!-- TODO: make category loading dynamic -->
+                    <select id="pCategory">
+                        <option value=1>Electronic Devices</option>
+                        <option value=2>Clothing</option>
+                        <option value=3>Food & Beverages</option>
+                    </select>
+
+                    <label for="pName">Name:</label>
+                    <input id="pName" type="text" name="Name" value="">
+                    <label for = "pPrice">Price:</label>
+                    <input id="pPrice" type="number" name="Price" value="">
+                    <label for = "pStock">Stock:</label>
+                    <input id="pStock" type = "number" name="Stock" value="">
+                    <div class="Product-Form-Buttons">
+                        <button id="Submit-Button" onclick="submitForm()" type="button"">Submit</button>
+                        <button id="Cancel-Button" onclick="closeForm()" type="button"">Cancel</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+        <section class="Products">
+
+        </section>
+    </main>
+    <script src="scripts/products.js"></script>
+</body>
+</html>
