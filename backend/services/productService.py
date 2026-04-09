@@ -1,5 +1,9 @@
+from fastapi import UploadFile
+from .ImageSaver import ImageSaver
 
 
+ImageSaver.ensureFolder()
+# TODO:send image to frontend
 def getProducts(db):
     cursor = db.cursor()
     cursor.execute("SELECT p.Product_ID, p.Name, p.Price, p.Stock, p.Category_ID, c.Category_Name FROM product p JOIN category c ON p.Category_ID = c.Category_ID")
@@ -43,12 +47,11 @@ def createProduct(product: dict, db):
     return {"message": "Success",
             "product": product}
 
-def updateProduct(product_id: int, product: dict, db):
-
-
+def updateProduct(product_id: int, product: dict, image: UploadFile, db):
     cursor = db.cursor()
-    sql = "UPDATE product SET Name=%s, Price=%s, Stock=%s, Category_ID=%s WHERE Product_ID = %s"
-    values = (product["Name"], product["Price"], product["Stock"], product["Category_ID"], product_id)
+    imageUrl = ImageSaver.saveImage(image.filename, image.file.read())
+    sql = "UPDATE product SET Name=%s, Price=%s, Stock=%s, Category_ID=%s, image_url=%s WHERE Product_ID = %s"
+    values = (product["Name"], product["Price"], product["Stock"], product["Category_ID"], imageUrl, product_id)
 
     cursor.execute(sql, values)
     db.commit()
