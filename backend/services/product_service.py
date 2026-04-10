@@ -4,7 +4,7 @@ from .ImageSaver import ImageSaver
 
 ImageSaver.ensureFolder()
 # TODO:send image to frontend
-def getProducts(db):
+def get_products(db):
     cursor = db.cursor()
     cursor.execute("SELECT p.Product_ID, p.Name, p.Price, p.Stock, p.Category_ID, c.Category_Name FROM product p JOIN category c ON p.Category_ID = c.Category_ID")
     rows = cursor.fetchall()
@@ -19,7 +19,7 @@ def getProducts(db):
         "Category_Name": row[5]}
         for row in rows]
 
-def getProduct(product_id, db):
+def get_product(product_id, db):
     cursor = db.cursor()
     sql = "SELECT * FROM Product WHERE Product_ID = %s"
     values = (product_id,)
@@ -36,7 +36,7 @@ def getProduct(product_id, db):
         }
     ]
 
-def createProduct(product: dict, db):
+def create_product(product: dict, db):
     cursor = db.cursor()
     sql = "INSERT INTO product(Name, Price, Stock) VALUES (%s, %s, %s)"
     values = (product["Name"], product["Price"], product["Stock"])
@@ -47,7 +47,7 @@ def createProduct(product: dict, db):
     return {"message": "Success",
             "product": product}
 
-def updateProduct(product_id: int, product: dict, image: UploadFile, db):
+def update_product(product_id: int, product: dict, image: UploadFile, db):
     cursor = db.cursor()
     imageUrl = ImageSaver.saveImage(image.filename, image.file.read())
     sql = "UPDATE product SET Name=%s, Price=%s, Stock=%s, Category_ID=%s, image_url=%s WHERE Product_ID = %s"
@@ -59,5 +59,5 @@ def updateProduct(product_id: int, product: dict, image: UploadFile, db):
     return{"message": "Success",
            "Product":product}
 
-def deleteProduct(product_id: int):
+def delete_product(product_id: int):
     pass

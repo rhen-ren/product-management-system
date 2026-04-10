@@ -10,17 +10,17 @@ router = APIRouter()
 
 @router.get("/products", response_class=JSONResponse)
 def get_products(db = Depends(get_db)):
-    return product_service.getProducts(db)
+    return product_service.get_products(db)
 
 @router.get("/products/{product_id}", response_class= JSONResponse)
 def get_product(product_id, db = Depends(get_db)):
-    return product_service.getProduct(product_id, db)
+    return product_service.get_product(product_id, db)
 
 @router.post("/products", response_class= JSONResponse)
 def create_product(product: dict, db = Depends(get_db)):
-    return product_service.createProduct(product, db)
+    return product_service.create_product(product, db)
 
 @router.put("/products/{product_id}", response_class=JSONResponse)
 def update_product(product_id, image: UploadFile = File(), product: str = Form(), db = Depends(get_db)):
     product = json.loads(product)
-    return product_service.updateProduct(product_id, product, image , db)
+    return product_service.update_product(product_id, product, image , db)
