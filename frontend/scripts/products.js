@@ -62,8 +62,21 @@ async function submitForm()
     const stock = document.getElementById("pStock").value;
 
 
-    formData.append("image", product_Image);
-    formData.append("product", JSON.stringify({Name: name, Category_ID: category, Price: Number(price), Stock: Number(stock)}));
+    if(product_Image)
+    {
+        formData.append("image", product_Image);
+    }
+    else{
+        
+    }
+
+    // formData.append("product", JSON.stringify({Name: name, Category_ID: category, Price: Number(price), Stock: Number(stock)}));
+    formData.append("product_id", Number(product_ID));
+    formData.append("name", name);
+    formData.append("category_id", category);
+    formData.append("price", Number(price));
+    formData.append("stock", Number(stock));
+
     const response = await fetch(`http://localhost:8000/products/${product_ID}`,{
         method: "PUT",
         body: formData
