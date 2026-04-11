@@ -1,4 +1,5 @@
 from fastapi import UploadFile
+from schema.product import ProductBase, ProductResponse
 from .ImageSaver import ImageSaver
 
 
@@ -63,9 +64,17 @@ def create_product(product: dict, db):
             "product": product}
 
 
-def update_product(product_id: int, product: dict, image: UploadFile, db):
+def update_product(product_id_path: int,
+                   product: ProductBase,
+                   image: UploadFile, db):
+
+    image_url = "Null"
     cursor = db.cursor()
-    imageUrl = ImageSaver.saveImage(image.filename, image.file.read())
+    if image and image.filename:
+        content = image.file.read()
+        if content:
+            image_url = ImageSaver.saveImage(image.filename, content)
+
     sql = """UPDATE product
                 SET Name=%s,
                     Price=%s,
@@ -73,19 +82,21 @@ def update_product(product_id: int, product: dict, image: UploadFile, db):
                     Category_ID=%s,
                     image_url=%s
             WHERE Product_ID = %s"""
+
     values = (
-        product["Name"],
-        product["Price"],
-        product["Stock"],
-        product["Category_ID"],
-        imageUrl, product_id)
+        product.name,
+        product.price,
+        product.stock,
+        product.category_id,
+        image_url,
+        product_id_path)
 
     cursor.execute(sql, values)
     db.commit()
 
     return {
         "message": "Success",
-        "Product": product
+        "Product": ProductResponse(**product.model_dump(), image_url=image_url)
            }
 
 
