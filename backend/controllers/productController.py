@@ -25,8 +25,9 @@ def create_product(product: dict, db=Depends(get_db)):
     return product_service.create_product(product, db)
 
 
-@router.put("/products/{product_id_path}", response_class=JSONResponse)
-def update_product(product_id_path: int = Path(...), image: Optional[UploadFile] = File(None),
+@router.put("/products/{product_id}", response_class=JSONResponse)
+def update_product(product_id: int = Path(...),
+                   image: Optional[UploadFile] = File(None),
                    product: ProductBase = Depends(product_from_form),
                    db=Depends(get_db)):
-    return product_service.update_product(product_id_path, product, image, db)
+    return product_service.update_product(product_id, product, image, db)

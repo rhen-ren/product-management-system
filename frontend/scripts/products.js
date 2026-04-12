@@ -67,10 +67,8 @@ async function submitForm()
         formData.append("image", product_Image);
     }
     else{
-        
-    }
 
-    // formData.append("product", JSON.stringify({Name: name, Category_ID: category, Price: Number(price), Stock: Number(stock)}));
+    }
     formData.append("product_id", Number(product_ID));
     formData.append("name", name);
     formData.append("category_id", category);

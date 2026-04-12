@@ -64,7 +64,7 @@ def create_product(product: dict, db):
             "product": product}
 
 
-def update_product(product_id_path: int,
+def update_product(product_id: int,
                    product: ProductBase,
                    image: UploadFile, db):
 
@@ -89,14 +89,14 @@ def update_product(product_id_path: int,
         product.stock,
         product.category_id,
         image_url,
-        product_id_path)
+        product_id)
 
     cursor.execute(sql, values)
     db.commit()
 
     return {
         "message": "Success",
-        "Product": ProductResponse(**product.model_dump(), image_url=image_url)
+        "Product": ProductResponse(product_id=product_id, **product.model_dump(), image_url=image_url)
            }
 
 
